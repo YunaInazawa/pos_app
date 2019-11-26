@@ -15,7 +15,7 @@ class CreateRecipeTypesTable extends Migration
     {
         Schema::create('recipe_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });
