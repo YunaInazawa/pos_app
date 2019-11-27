@@ -16,16 +16,16 @@ class CreateRecipeDetailsTable extends Migration
         Schema::create('recipe_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('recipe_id')->unsigned();
-            $table->bigInteger('material_type_id')->unsigned();
-            $table->integer('quantity');
+            $table->bigInteger('material_id')->unsigned();
+            $table->string('quantity');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('recipe_id')
                 ->references('id')->on('recipes')
                 ->onDelete('cascade');
-            $table->foreign('material_type_id')
-                ->references('id')->on('material_types')
+            $table->foreign('material_id')
+                ->references('id')->on('materials')
                 ->onDelete('cascade');
         });
     }
