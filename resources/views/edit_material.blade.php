@@ -5,7 +5,7 @@
     <h1>{{ $message }}</h1>
         
     <table>
-        @foreach( $recipe_data as $data )
+        @foreach( $mate_data as $data )
         <tr>
             <td>- {{ $data->name }}</td>
             <td>[edit]</td>

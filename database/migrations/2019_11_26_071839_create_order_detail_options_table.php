@@ -17,6 +17,7 @@ class CreateOrderDetailOptionsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('order_detail_id')->unsigned();
             $table->bigInteger('option_id')->unsigned();
+            $table->integer('fiff_price');
             $table->timestamps();
             $table->softDeletes();
 

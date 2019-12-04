@@ -1,17 +1,21 @@
 @extends('layouts.app')
 @section('title', 'TOP')
 
+<!--
+    Controllerから送られたデータ
+    /**
+     * pos_data     : PosTable( id, number )
+     **/
+-->
+
 @section('content')
     <h1>TOP</h1>
     <form action="{{ route('check') }}" method="POST">
         @csrf
         <select name="pos_num">
-
-            <option value="101">101</option>
-            <option value="102">102</option>
-            <option value="201">201</option>
-            <option value="202">202</option>
-            <option value="203">203</option>
+            @foreach( $pos_data as $pos )
+            <option value="{{ $pos->number }}">{{ $pos->number }}</option>
+            @endforeach
         </select>
         <input type="submit" name="pos_btn" value="レジ"><br />
     </form>
