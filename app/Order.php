@@ -12,4 +12,9 @@ class Order extends Model
     {
         return $this->hasMany('App\Order_detail');
     }
+
+    public function pos()
+    {
+        return $this->belongsTo('App\Pos');
+    }
 }
