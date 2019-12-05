@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'TOP')
+@section('title', 'EDIT_POS')
+@section('subtitle', 'EDIT_POS')
 
 @section('content')
     <h1>EDIT_POS</h1>

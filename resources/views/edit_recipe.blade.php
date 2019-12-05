@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'TOP')
+@section('title', 'EDIT_RECIPE')
+@section('subtitle', $message)
 
 @section('content')
     <h1>{{ $message }}</h1>

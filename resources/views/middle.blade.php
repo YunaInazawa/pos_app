@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'TOP')
+@section('title', 'MIDDLE')
+@section('subtitle', 'MIDDLE')
 
 @section('content')
     <h1>MIDDLE</h1>

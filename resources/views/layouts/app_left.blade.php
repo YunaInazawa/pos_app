@@ -15,7 +15,11 @@
         <div class="container">
  
             <div class="row" id="content">
-                <div class="col-md-12" style="margin-top:70px;">
+                <div class="col-md-3">
+                    <!-- サイドバー -->
+                    @include('layouts.sidebar')
+                </div>
+                <div class="col-md-9" style="margin-top:70px;">
                     <!-- コンテンツ -->
                     @yield('content')
                 </div>

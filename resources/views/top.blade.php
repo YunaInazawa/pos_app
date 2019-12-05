@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'TOP')
+@section('subtitle', 'TOP')
 
 <!--
     Controllerから送られたデータ

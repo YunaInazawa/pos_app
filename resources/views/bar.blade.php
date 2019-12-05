@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('title', 'TOP')
+@section('title', 'BAR')
+@section('subtitle', 'POS番号 : ' . $pos_num)
 
 @section('content')
     <h1>BAR</h1>
