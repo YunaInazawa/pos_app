@@ -75,11 +75,26 @@
         var total = "合計：" + $("#total").text() + "円\n";
         var pay  = "お預かり：" + document.getElementById('pay').value + "円\n";
         var change = "おつり：" + $("#change").text() + "円\n\n";
+        var recipe_name_data = joinArray(orders, 0);
+        var recipe_num_data = joinArray(orders, 2);
 
         if(confirm(total + pay + change + 'OK?')){
+            document.getElementById('hi').innerHTML += "<input type='hidden' name='recipe_name' value='" + recipe_name_data + "'>";
+            document.getElementById('hi').innerHTML += "<input type='hidden' name='recipe_num' value='" + recipe_num_data + "'>";
             return true;
         }
         return false;
+    }
+
+    function joinArray( arr, num ){
+        var result = "";
+        for( var i = 0; i < arr.length; i++ ){
+            result += arr[i][num] + ",";
+        }
+        result = result.substring(0, result.length - 1);
+
+        return result;
+
     }
 </script>
 
@@ -120,35 +135,39 @@
 @endsection
 
 @section('sidemenu')
-    <div id="order-panel" style="height: 200px;">
-    << ORDER >><br />
-        
-    </div>
+    <form action="{{ route('pos.new') }}" method="POST" onSubmit="return check()">
+        @csrf
+        <div id="order-panel" style="height: 200px;">
+        << ORDER >><br />
+            
+        </div>
 
-    <hr>
+        <hr>
 
-    <div id="option-panel" style="height: 200px;">
-    << OPTION >><br />
-        
-    </div>
+        <div id="option-panel" style="height: 200px;">
+        << OPTION >><br />
+            
+        </div>
 
-    <div id="other-panel">
-        備考<br />
-        <textarea name="other" rows="4" cols="25">textarea</textarea>
-    </div>
+        <div id="other-panel">
+            備考<br />
+            <textarea name="other" rows="4" cols="25"></textarea>
+        </div>
 
-    <hr>
+        <hr>
 
-    <div id="money-panel" style="font-size: 20px;">
-        <form action="#" method="POST" onSubmit="return check()">
-            <b>
-            合計　　 ￥<span id="total">0</span><br />
-            お預かり ￥<input type="number" id="pay" value="0" min="0" step="10" style="width: 4em;" onchange="changePay()"><br />
-            ----------------------------<br />
-            おつり　 ￥<span id="change">0</span><br />
-            </b>
-            <br />
-            <input type="submit" value="OK">
-        </form>
-    </div>
+        <div id="money-panel" style="font-size: 20px;">
+                <b>
+                合計　　 ￥<span id="total">0</span><br />
+                お預かり ￥<input type="number" id="pay" value="0" min="0" step="10" style="width: 4em;" onchange="changePay()"><br />
+                ----------------------------<br />
+                おつり　 ￥<span id="change">0</span><br />
+                </b>
+                <br />
+                <input type="submit" value="OK">
+        </div>
+
+        <input type="hidden" name="pos_num" value="{{ $pos_num }}">
+        <div id="hi"></div>
+    </form>
 @endsection

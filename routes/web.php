@@ -14,6 +14,7 @@
 Route::get('/', 'TopController@index')              -> name('top');
 Route::get('/middle', 'PosController@middle')       -> name('middle');
 Route::get('/pos/{pos_num}','PosController@pos')    -> name('pos');
+Route::post('/pos','PosController@new')             -> name('pos.new');
 Route::get('/bar/{pos_num}', 'PosController@bar')   -> name('bar');
 Route::post('check', 'PosController@check')         -> name('check');
 Route::get('/edit', 'MgrController@index')          -> name('edit');

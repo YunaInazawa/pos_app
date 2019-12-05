@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Pos;
 use App\Recipe;
 use App\Option;
+use App\Order;
+use App\Order_detail;
 
 class PosController extends Controller
 {
@@ -33,6 +37,46 @@ class PosController extends Controller
         $option_data = Option::all();
 
         return view('pos', ['pos_num' => $pos_num, 'recipe_data' => $recipe_data, 'option_data' => $option_data]);
+
+    }
+
+    public function new( Request $request ) {
+        $request -> session() -> regenerateToken();
+        $pos_num = $request -> pos_num;
+
+        $now = Carbon::now();
+        $recipe_name = $request -> recipe_name;
+        $recipe_num = $request -> recipe_num;
+        $other = $request -> other;
+
+        $pos = Pos::where('number', $pos_num)->first();
+
+        // Order 登録
+        $addOrder = new Order();
+        $addOrder->pos_number_id = $pos->id;
+        $addOrder->other = $other;
+        $addOrder->created_at = $now;
+        $addOrder->updated_at = $now;
+        $addOrder->save();
+
+        $recipe = explode(",", $recipe_name);
+        $num = explode(",", $recipe_num);
+        for( $i = 0; $i < count($num); $i++ ){
+            if( $num[$i] != 0 ){
+                $recipe_data = Recipe::where('name', $recipe[$i])->first();
+
+                $addOrderDetail = new Order_detail();
+                $addOrderDetail->order_id = $addOrder->id;
+                $addOrderDetail->recipe_id = $recipe_data->id;
+                $addOrderDetail->drink_num = $num[$i];
+                $addOrderDetail->created_at = $now;
+                $addOrderDetail->updated_at = $now;
+                $addOrderDetail->save();
+            }
+        }
+
+
+        return redirect('/pos/' . $pos_num);
 
     }
 
