@@ -31,3 +31,27 @@ body {
   overflow: auto;
 }
 
+.order-num-box {
+  width: 150px;
+  height: auto;
+  float: left;
+}
+
+.order-box {
+  width: 300px;
+  height: auto;
+  float: left;
+}
+
+.detail {
+  width: 200px;
+  height: auto;
+  float: left;
+}
+
+.quantity {
+  width: 50px;
+  height: auto;
+  float: left;
+}
+

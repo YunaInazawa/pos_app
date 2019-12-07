@@ -40,7 +40,7 @@ class recipeDetailTableSeeder extends Seeder
             'サーシーoriginal3', 'サーシーoriginal3', 'サーシーoriginal3', 'サーシーoriginal3', 
             'コーラ&コーヒー', 'コーラ&コーヒー', 
             'サーシーoriginal4', 'サーシーoriginal4', 'サーシーoriginal4', 'サーシーoriginal4', 
-            'スカイレモネード', 'スカイレモネード', 'スカイレモネード', 'スカイレモネード', 
+            'マリンレモネード', 'マリンレモネード', 'マリンレモネード', 'マリンレモネード', 
             'サーシーoriginal5', 'サーシーoriginal5', 'サーシーoriginal5', 'サーシーoriginal5', 
             'サーシーoriginal6', 'サーシーoriginal6', 'サーシーoriginal6', 'サーシーoriginal6', 
             'ブルーハワイパインソーダ', 'ブルーハワイパインソーダ', 'ブルーハワイパインソーダ'

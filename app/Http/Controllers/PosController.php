@@ -20,7 +20,9 @@ class PosController extends Controller
      * data     : 
      */
     public function middle(){
-        return view('middle');
+        $order_detail_data = Order_detail::all();
+
+        return view('middle', ['order_detail_data' => $order_detail_data]);
 
     }
 
