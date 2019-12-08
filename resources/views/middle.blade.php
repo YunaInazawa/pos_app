@@ -11,6 +11,7 @@
     @php
     $now_number = 0;
     $data = $order_detail_data;
+    $temp = '';
     @endphp
 
     <h1>MIDDLE</h1>
@@ -28,15 +29,31 @@
     @endif
 
         <b>< {{ $data[$i]->recipe->name }} : {{ $data[$i]->drink_num }} ></b><br />
-        <div class="detail">-> detail</div><div class="quantity">: quan</div>
+
+        @for( $j = 0; $j < count($recipe_detail_data[$data[$i]->recipe->name]); $j++ )
+        <div class="detail">　- {{ $recipe_detail_data[$data[$i]->recipe->name][$j][0] }}</div>
+        <div class="quantity">: {{ $recipe_detail_data[$data[$i]->recipe->name][$j][1] }}</div>
         <div class="floatclear"></div>
+        @endfor
 
     @if( $i == count($data) - 1 || $now_number != $data[$i + 1]->order_id )
     </div>
+
     <div id="order_option" class="order-box">
         <b>< OPTIONs ></b><br />
-        option.<br />
+        @foreach( $option_data as $option )
+        @if( $option->order_detail->order_id == $data[$i]->order_id )
+        @if( $temp != $option->order_detail->id )
+        @php
+        $temp = $option->order_detail->id;
+        @endphp
+        - {{ $option->order_detail->recipe->name }}<br />
+        @endif
+        　{{ $option->option->name }}<br />
+        @endif
+        @endforeach
     </div>
+
     <div id="order_other" class="order-box">
         <b>< OTHERs ></b><br />
         {{ $data[$i]->order->other }} <br />

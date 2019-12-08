@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Pos;
 use App\Recipe;
+use App\Recipe_detail;
 use App\Option;
 use App\Order;
 use App\Order_detail;
@@ -13,6 +14,27 @@ use App\Order_detail_option;
 
 class PosController extends Controller
 {
+    public function checkFirst( $arr, $value ) {
+        foreach( $arr as $data ){
+            if( $data == $value ){
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    public function checkRecipe( $arr, $id ){
+        $result = array();
+        for( $i = 0; $i < count($arr); $i++ ){
+            if( $arr[$i]->recipe_id == $id ){
+                $result[] = array($arr[$i]->material->name, $arr[$i]->quantity);
+            }
+        }
+        return $result;
+
+    }
+
     /**
      * 中間者ページ
      * 
@@ -20,11 +42,21 @@ class PosController extends Controller
      * data     : 
      */
     public function middle(){
-        $order_detail_data = Order_detail::all();
+        $order_detail_data = Order_detail::orderBy('id')->get();
+        $recipe_detail = Recipe_detail::orderBy('recipe_id')->get();
+        $option_data = Order_detail_option::orderBy('order_detail_id')->get();
+        $recipe_detail_data = array();
 
-        return view('middle', ['order_detail_data' => $order_detail_data]);
+        foreach( $order_detail_data as $data ){
+            if( $this->checkFirst($recipe_detail_data, $data) ){
+                $recipe_data = $this->checkRecipe($recipe_detail, $data->recipe->id);
+                $recipe_detail_data[$data->recipe->name] = $recipe_data;
+            }
+        }
 
-    }
+        return view('middle', ['order_detail_data' => $order_detail_data, 'recipe_detail_data' => $recipe_detail_data, 'option_data' => $option_data]);
+
+    }    
 
     /**
      * レジページ
