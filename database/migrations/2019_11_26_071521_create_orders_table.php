@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('pos_number_id')->unsigned();
             $table->text('other')->nullable();
+            $table->boolean('end_flag');
             $table->timestamps();
             $table->softDeletes();
 

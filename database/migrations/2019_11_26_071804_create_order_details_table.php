@@ -18,7 +18,6 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('order_id')->unsigned();
             $table->bigInteger('recipe_id')->unsigned();
             $table->integer('drink_num');
-            $table->boolean('end_flag');
             $table->timestamps();
             $table->softDeletes();
 

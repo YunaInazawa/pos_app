@@ -56,6 +56,29 @@ class PosController extends Controller
 
         return view('middle', ['order_detail_data' => $order_detail_data, 'recipe_detail_data' => $recipe_detail_data, 'option_data' => $option_data]);
 
+    }
+
+    /**
+     * All_Orderページ
+     * 
+     * link     : all_order.blade.php 
+     * data     : 
+     */
+    public function all(){
+        $order_detail_data = Order_detail::orderBy('id')->get();
+        $recipe_detail = Recipe_detail::orderBy('recipe_id')->get();
+        $option_data = Order_detail_option::orderBy('order_detail_id')->get();
+        $recipe_detail_data = array();
+
+        foreach( $order_detail_data as $data ){
+            if( $this->checkFirst($recipe_detail_data, $data) ){
+                $recipe_data = $this->checkRecipe($recipe_detail, $data->recipe->id);
+                $recipe_detail_data[$data->recipe->name] = $recipe_data;
+            }
+        }
+
+        return view('all_order', ['order_detail_data' => $order_detail_data, 'recipe_detail_data' => $recipe_detail_data, 'option_data' => $option_data]);
+
     }    
 
     /**
@@ -100,6 +123,7 @@ class PosController extends Controller
         $addOrder = new Order();
         $addOrder->pos_number_id = $pos->id;
         $addOrder->other = $other;
+        $addOrder->end_flag = false;
         $addOrder->created_at = $now;
         $addOrder->updated_at = $now;
         $addOrder->save();
@@ -153,13 +177,43 @@ class PosController extends Controller
     }
 
     /**
+     * 完了
+     * 
+     * link     : pos.blade.php(redirect)
+     */
+    public function comp( Request $request ) {
+        $request -> session() -> regenerateToken();
+        $order_id = $request -> order_id;
+
+        if( $order_id != 0 ){
+            $addData = Order::where('id', $order_id)->first();
+            $addData->end_flag = true;
+            $addData->save();
+        }
+
+        return redirect('/middle');
+    }
+
+    /**
      * バーテンページ
      * 
      * link     : bar.blade.php 
      * data     : 
      */
     public function bar( $pos_num = 201 ){
-        return view('bar', ['pos_num' => $pos_num]);
+        $order_detail_data = Order_detail::orderBy('id')->get();
+        $recipe_detail = Recipe_detail::orderBy('recipe_id')->get();
+        $option_data = Order_detail_option::orderBy('order_detail_id')->get();
+        $recipe_detail_data = array();
+
+        foreach( $order_detail_data as $data ){
+            if( $this->checkFirst($recipe_detail_data, $data) ){
+                $recipe_data = $this->checkRecipe($recipe_detail, $data->recipe->id);
+                $recipe_detail_data[$data->recipe->name] = $recipe_data;
+            }
+        }
+
+        return view('bar', ['pos_num' => $pos_num, 'order_detail_data' => $order_detail_data, 'recipe_detail_data' => $recipe_detail_data, 'option_data' => $option_data]);
 
     }
 

@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'TopController@index')              -> name('top');
+Route::get('/all_order', 'PosController@all')       -> name('all');
 Route::get('/middle', 'PosController@middle')       -> name('middle');
+Route::post('/middle', 'PosController@comp')        -> name('middle.comp');
 Route::get('/pos/{pos_num}','PosController@pos')    -> name('pos');
 Route::post('/pos','PosController@new')             -> name('pos.new');
 Route::get('/bar/{pos_num}', 'PosController@bar')   -> name('bar');

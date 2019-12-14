@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'BAR')
-@section('subtitle', 'POS番号 : ' . $pos_num)
+@section('title', 'ALL_ORDER')
+@section('subtitle', 'ALL_ORDER')
 
 @section('content')
     @php
@@ -9,16 +9,16 @@
     $temp = '';
     @endphp
 
-    <h1>BAR</h1>
+    <h1><a href="{{ route('middle') }}">MIDDLE</a> | ALL_ORDER</h1>
 
     @for( $i = 0; $i < count($data); $i++ )
-    @if( $data[$i]->order->end_flag == false )
         <div id="hi{{ $data[$i]->order_id }}"></div>
         @csrf
         @if( $now_number != $data[$i]->order_id )
         <hr>
         <div id="order_num" class="order-num-box center">
             <h1>{{ $data[$i]->order_id }}.</h1>
+            <p>{{ $data[$i]->order->end_flag ? "完了済" : "" }}</p>
         </div>
         <div id="order_recipe" class="order-box">
         @php
@@ -40,7 +40,7 @@
         <div id="order_option" class="order-box">
             <b>< OPTIONs ></b><br />
             @foreach( $option_data as $option )
-            @if( $option->order_detail->order_id == $data[$i]->order_id && $option->option->name !="割引券" )
+            @if( $option->order_detail->order_id == $data[$i]->order_id )
             @if( $temp != $option->order_detail->id )
             @php
             $temp = $option->order_detail->id;
@@ -58,7 +58,6 @@
         </div>
         <div class="floatclear"></div>
         @endif
-    @endif
     @endfor
 
     <hr>

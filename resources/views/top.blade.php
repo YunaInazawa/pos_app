@@ -24,5 +24,4 @@
     <input type="button" name="middle_btn" value="中間" onclick=location.href="{{ route('middle') }}"><br />
 
     <input type="button" name="edit_btn" value="編集" onclick=location.href="{{ route('edit') }}"><br />
-    
 @endsection
