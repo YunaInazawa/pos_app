@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Pos;
 use App\Recipe;
+use App\Material;
 use App\Recipe_detail;
 use App\Option;
 use App\Order;
@@ -172,7 +173,7 @@ class PosController extends Controller
             }
         }
 
-        return redirect('/pos/' . $pos_num);
+        return redirect('/pos/' . $pos_num)->with('message', $addOrderDetail->order_id);
 
     }
 
@@ -215,6 +216,14 @@ class PosController extends Controller
 
         return view('bar', ['pos_num' => $pos_num, 'order_detail_data' => $order_detail_data, 'recipe_detail_data' => $recipe_detail_data, 'option_data' => $option_data]);
 
+    }
+
+    public function recipe( $pos_num = 201 ){
+        $recipe_detail_data = Recipe_detail::all();
+        $material_data = Material::all();
+        $recipe_data = Recipe::all();
+
+        return view('recipe', ['pos_num' => $pos_num, 'recipe_detail_data' => $recipe_detail_data, 'material_data' => $material_data, 'recipe_data' => $recipe_data]);
     }
 
     /**

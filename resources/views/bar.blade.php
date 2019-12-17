@@ -9,7 +9,7 @@
     $temp = '';
     @endphp
 
-    <h1>BAR</h1>
+    <h1>BAR | <a href="/recipe/{{ $pos_num }}">RECIPE</a></h1>
 
     @for( $i = 0; $i < count($data); $i++ )
     @if( $data[$i]->order->end_flag == false )

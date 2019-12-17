@@ -18,6 +18,7 @@ Route::post('/middle', 'PosController@comp')        -> name('middle.comp');
 Route::get('/pos/{pos_num}','PosController@pos')    -> name('pos');
 Route::post('/pos','PosController@new')             -> name('pos.new');
 Route::get('/bar/{pos_num}', 'PosController@bar')   -> name('bar');
+Route::get('/recipe/{pos_num}', 'PosController@recipe')       -> name('bar.recipe');
 Route::post('check', 'PosController@check')         -> name('check');
 Route::get('/edit', 'MgrController@index')          -> name('edit');
 Route::get('/edit_pos', 'MgrController@pos')        -> name('edit.pos');

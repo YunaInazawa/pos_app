@@ -175,6 +175,9 @@
 <!-- HTML -->
 @section('content')
     <div><h1><< RECIPE >></h1></div>
+    @if(Session::has('message'))
+        <h4>登録したお客様番号：{{ session('message') }}</h4>
+    @endif
 
     @foreach( $recipe_data as $data )
     <div class="fl" style="width: 280px; height: 150px;" onclick="addOrder('{{ $data->name }}', '{{ $data->price }}')">
